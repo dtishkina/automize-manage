@@ -1,13 +1,9 @@
 import axios from "axios";
 
-const getAllGoods =  {
-  async fetch({ page, itemsPerPage }) {
-    const params = new URLSearchParams({
-      _page: page,
-      _limit: itemsPerPage,
-    });
+const getTopFiveGoods =  {
+  async fetch({}) {
     try {
-      const response = await axios.get(`/rest/goods/all_with_warehouse?${params.toString()}`);
+      const response = await axios.get(`/rest/goods/top5?`);
       const total = parseInt(response.headers['x-total-count']);
 
       return { items: response.data, total };
@@ -18,4 +14,5 @@ const getAllGoods =  {
   }
 };
 
-export default getAllGoods;
+export default getTopFiveGoods;
+

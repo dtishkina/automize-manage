@@ -5,6 +5,7 @@
         :headers="headers"
         :items-length="totalItems"
         :items="serverItems"
+                  show-select=""
         @update:options="loadItems"
     >
 
@@ -14,18 +15,39 @@
                         density="compact"
                         rounded variant="outlined"
                         v-model="search.name"
-                        placeholder="Найти по имени">
+                        placeholder="Найти по наименованию">
           </v-text-field>
+
           <v-spacer></v-spacer>
 
+          <custom-button
+            style="border: 2px solid lavender; border-radius: 14px;
+                   padding: 0.7em; background-color:lavender"
+            button-text="Новый товар"
+            :svg-path="'src/assets/plus.svg'"></custom-button>
         </custom-block>
       </template>
 
       <template v-slot:item.actions="{ item }">
-        <v-icon size="small" class="me-2" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-btn-group>
+        <v-btn variant="text"
+               rounded="lg"
+               size="x-small"
+               @click="editItem(item)">
+          <v-icon density="compact">
+            <img :src="'src/assets/edit-05.svg'" alt="Icon">
+          </v-icon>
+        </v-btn>
+        <v-btn variant="text"
+               rounded="lg"
+               size="x-small"
+               @click="deleteItem(item)">
+          <v-icon density="compact">
+            <img  :src="'src/assets/trash-01.svg'" alt="Icon">
+          </v-icon>
+
+        </v-btn>
+        </v-btn-group>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="loadItems"> Reset </v-btn>
@@ -48,6 +70,8 @@
 
 .search-header{
   height: 75px;
+  display: flex;
+  flex-direction: row;
 }
 
 </style>
@@ -55,11 +79,12 @@
 <script>
 import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllGoods from "@/services/getAllGoods";
-import fetchAllData from "@/services/getAllGoods";
+import CustomButton from "@/components/UI/CustomButton.vue";
 import getAllData from "@/services/getAllGoods";
 
 export default {
   components: {
+    CustomButton,
     CustomBlock,
   },
   data() {
@@ -69,8 +94,8 @@ export default {
         { title: 'ID', value: 'id', align: 'start', sortable: true },
         { title: 'Наименование', value: 'name', align: 'start', sortable: true },
         { title: 'Приоритет', value: 'priority', align: 'center', sortable: true },
-        { title: 'На складе #1', value: 'goodCountFirst', align: 'center', sortable: true },
-        { title: 'На складе #2', value: 'goodsCountSecond', align: 'center', sortable: true },
+        { title: 'На складе #1', key: 'goodCountFirst', align: 'center', sortable: true },
+        { title: 'На складе #2', key: 'goodCountSecond', align: 'center', sortable: true },
         { title: '', key: 'actions', sortable: false },
       ],
       serverItems: [],
@@ -113,19 +138,19 @@ export default {
       });
     },
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.serverItems.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.serverItems.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
+      this.serverItems.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -147,9 +172,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        Object.assign(this.serverItems[this.editedIndex], this.editedItem)
       } else {
-        this.desserts.push(this.editedItem)
+        this.serverItems.push(this.editedItem)
       }
       this.close()
     },
