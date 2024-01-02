@@ -1,30 +1,35 @@
 <template>
-  <div>
+  <div class="references-page">
     <custom-header
         header-text="Справочники"
-        description-text="Здесь вы можете посмотреть таблицу всех товаров"
+        description-text="Здесь вы можете посмотреть информацию о товарах"
     />
-    <custom-block>
-      <data-table></data-table>
-    </custom-block>
+    <chip-goods></chip-goods>
+
   </div>
 </template>
 
 <script>
 
-import CustomBlock from "@/components/UI/CustomBlock.vue";
 import CustomHeader from "@/components/UI/CustomHeader.vue";
-import DataTable from "@/components/DataTable.vue";
+import ChipGoods from "@/components/ChipGoods.vue";
 
 export default {
   components: {
-    CustomBlock,
     CustomHeader,
-    DataTable
+    ChipGoods,
   },
 }
 </script>
 
 <style>
+
+.references-page{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+
 
 </style>
