@@ -1,9 +1,9 @@
 <script>
-import CustomBlock from "@/components/UI/CustomBlock.vue";
 import DataTable from "@/components/GoodsDataTable.vue";
+import TopFiveGoods from "@/components/TopFiveGoods.vue";
 
 export default {
-  components: {DataTable, CustomBlock},
+  components: {DataTable, TopFiveGoods},
   data: () => ({
     tags: [
       'Товары',
@@ -21,7 +21,7 @@ export default {
         case 'Товары':
           return 'DataTable';
         case 'top #5':
-          return 'CustomBlock';
+          return 'TopFiveGoods';
         case 'Изменение спроса':
           return null;
         default:
