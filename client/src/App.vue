@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <div class="app-container">
-<!--        <navbar></navbar>-->
+        <navbar></navbar>
         <div class="app-content">
           <router-view></router-view>
         </div>
