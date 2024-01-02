@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalesRepo extends JpaRepository<Sales, Integer> {
+    int countByGoodId(int goodId);
+
 }

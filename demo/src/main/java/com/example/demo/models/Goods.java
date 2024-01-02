@@ -15,5 +15,5 @@ public class Goods {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String priority;
+    private int priority;
 }
