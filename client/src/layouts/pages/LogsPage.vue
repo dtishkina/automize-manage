@@ -4,18 +4,17 @@
         header-text="Журналы"
         description-text="Здесь вы можете посмотреть все заявки на товары"
     />
-    <custom-block>
-    </custom-block>
+    <sales-data-table></sales-data-table>
   </div>
 </template>
 
 
 <script>
-import CustomBlock from "@/components/UI/CustomBlock.vue";
 import CustomHeader from "@/components/UI/CustomHeader.vue";
+import SalesDataTable from "@/components/SalesDataTable.vue";
 
 export default {
-  components: {CustomHeader, CustomBlock}
+  components: {SalesDataTable, CustomHeader}
 }
 </script>
 
