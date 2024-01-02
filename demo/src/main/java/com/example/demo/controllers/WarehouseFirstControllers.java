@@ -20,7 +20,7 @@ public class WarehouseFirstControllers {
     }
 
     @GetMapping
-    public List<WarehouseFirst> getAllWarehouseFirst() {
+    public List<WarehouseFirst> findAll() {
         return this.warehouseFirstService.findAll();
     }
 }

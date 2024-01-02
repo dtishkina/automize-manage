@@ -19,5 +19,5 @@ public class WarehouseSecond {
     private int goodsId;
 
     @Column(name = "good_count")
-    private int goodCount;
+    private int goodCountSecond;
 }
