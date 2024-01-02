@@ -19,7 +19,7 @@ public class Sales {
     private int id;
 
     @Column(name = "good_id")
-    private int goodsId;
+    private int goodId;
 
     @Column(name = "good_count")
     private int goodCount;
