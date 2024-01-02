@@ -19,5 +19,5 @@ public class WarehouseFirst {
     private int goodsId;
 
     @Column(name = "good_count")
-    private int goodCount;
+    private int goodCountFirst;
 }
