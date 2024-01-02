@@ -5,9 +5,9 @@
       temporary=""
       class="navbar"
   >
-    <div class="navbar__logo" @click="$router.push('/goods')" @click.stop="toggleDrawer">
+    <div class="navbar__logo" @click="$router.push('/')" @click.stop="toggleDrawer">
       <v-app-bar-nav-icon style="margin-right: 10px">
-        <img :src="require('@/assets/settings-02.svg')" alt="Icon"/>
+        <img :src="'src/assets/settings-02.svg'" alt="Icon"/>
       </v-app-bar-nav-icon>
       <v-app-bar-title>Automize <br> manage</v-app-bar-title>
     </div>
@@ -15,22 +15,22 @@
       <custom-button
           style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
           button-text="Справочники"
-          :svg-path="require('@/assets/rows-01.svg')"
+          :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
           style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
           button-text="Журналы"
-          :svg-path="require('@/assets/book-open-01.svg')"
+          :svg-path="'src/assets/book-open-01.svg'"
       />
       <custom-button
           style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
           button-text="Отчеты"
-          :svg-path="require('@/assets/file-03.svg')"
+          :svg-path="'src/assets/file-03.svg'"
       />
       <div class="navbar__another">
         <custom-button style="width: 100%" @click="$router.push('/composition')"
                        button-text="Выход"
-                       :svg-path="require('@/assets/log-out-03.svg')"
+                       :svg-path="'src/assets/log-out-03.svg'"
         />
       </div>
     </div>
@@ -38,20 +38,20 @@
 
   <navbar class="side-app-bar">
     <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-      <img :src="require('@/assets/menu-01.svg')" alt="Icon"/>
+      <img :src="'src/assets/menu-01.svg'" alt="Icon"/>
     </v-app-bar-nav-icon>
     <div class="navbar__btns">
       <custom-button
           style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
-          :svg-path="require('@/assets/rows-01.svg')"
+          :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
           style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
-          :svg-path="require('@/assets/book-open-01.svg')"
+          :svg-path="'src/assets/book-open-01.svg'"
       />
       <custom-button
           style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
-          :svg-path="require('@/assets/file-03.svg')"
+          :svg-path="'src/assets/file-03.svg'"
       />
     </div>
   </navbar>
@@ -61,6 +61,7 @@
 <script>
 
 import CustomButton from "@/components/UI/CustomButton.vue";
+
 
 export default {
   components: {CustomButton},
