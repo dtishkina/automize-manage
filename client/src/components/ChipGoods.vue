@@ -40,6 +40,7 @@ export default {
           <v-chip-group
             class="chip-group"
             selected-class="selected-chip"
+            v-model="chip"
           >
             <v-chip
               size="large"
@@ -47,6 +48,7 @@ export default {
               class="chips"
               v-for="tag in tags"
               :key="tag"
+              :value="tag"
               @click="selectChip(tag)"
             >
               {{ tag }}
