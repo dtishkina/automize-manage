@@ -1,9 +1,10 @@
 <script>
 import DataTable from "@/components/GoodsDataTable.vue";
 import TopFiveGoods from "@/components/TopFiveGoods.vue";
+import SearchGoodDemand from "@/components/SearchGoodDemand.vue";
 
 export default {
-  components: {DataTable, TopFiveGoods},
+  components: {DataTable, TopFiveGoods, SearchGoodDemand},
   data: () => ({
     tags: [
       'Товары',
@@ -23,7 +24,7 @@ export default {
         case 'top #5':
           return 'TopFiveGoods';
         case 'Изменение спроса':
-          return null;
+          return 'SearchGoodDemand';
         default:
           return null;
       }

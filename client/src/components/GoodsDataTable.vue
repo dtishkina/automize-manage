@@ -1,12 +1,12 @@
 <template>
   <custom-block class="table">
-    <v-data-table class = "table element"
-        v-model:items-per-page="itemsPerPage"
-        :headers="headers"
-        :items-length="totalItems"
-        :items="serverItems"
+    <v-data-table class="table element"
+                  v-model:items-per-page="itemsPerPage"
+                  :headers="headers"
+                  :items-length="totalItems"
+                  :items="serverItems"
                   show-select=""
-        @update:options="loadItems"
+                  @update:options="loadItems"
     >
 
       <template v-slot:top>
@@ -14,43 +14,91 @@
           <v-text-field class="search-bar"
                         density="compact"
                         rounded variant="outlined"
-                        v-model="search.name"
                         placeholder="Найти по наименованию">
           </v-text-field>
 
           <v-spacer></v-spacer>
 
-          <custom-button
-            style="border: 2px solid lavender; border-radius: 14px;
-                   padding: 0.7em; background-color:lavender"
-            button-text="Новый товар"
-            :svg-path="'src/assets/plus.svg'"></custom-button>
+          <v-dialog v-model="dialog" max-width="500px">
+            <template v-slot:activator="{ props }">
+              <custom-button
+                v-bind="props"
+                style="border: 2px solid lavender; border-radius: 14px;
+                                 padding-top: 8px; background-color:lavender"
+                button-text="Новый товар"
+                :svg-path="'src/assets/plus.svg'">Новый товар</custom-button>
+            </template>
+
+            <v-card>
+              <v-card-title>
+                <span class="text-h4">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col>
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Наименование товара"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field
+                        v-model="editedItem.priority"
+                        label="Приоритет"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue-darken-1" variant="text" @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn color="blue-darken-1" variant="text" @click="save">
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
         </custom-block>
+
+        <delete-dialog
+          :show="dialogDelete"
+          :itemName="editedItem.name"
+          :itemId="editedItem.id"
+          @close="closeDelete"
+          @deleted="handleDeletion"
+          @click="closeDelete"
+        ></delete-dialog>
       </template>
 
       <template v-slot:item.actions="{ item }">
         <v-btn-group>
-        <v-btn variant="text"
-               rounded="lg"
-               size="x-small"
-               @click="editItem(item)">
-          <v-icon density="compact">
-            <img :src="'src/assets/edit-05.svg'" alt="Icon">
-          </v-icon>
-        </v-btn>
-        <v-btn variant="text"
-               rounded="lg"
-               size="x-small"
-               @click="deleteItem(item)">
-          <v-icon density="compact">
-            <img  :src="'src/assets/trash-01.svg'" alt="Icon">
-          </v-icon>
-
-        </v-btn>
+          <v-btn variant="text"
+                 rounded="lg"
+                 size="x-small"
+                 @click="editItem(item)">
+            <v-icon density="compact">
+              <img :src="'src/assets/edit-05.svg'" alt="Icon">
+            </v-icon>
+          </v-btn>
+          <v-btn variant="text"
+                 rounded="lg"
+                 size="x-small"
+                 @click="deleteItem(item)">
+            <v-icon density="compact">
+              <img :src="'src/assets/trash-01.svg'" alt="Icon">
+            </v-icon>
+          </v-btn>
         </v-btn-group>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="loadItems"> Reset </v-btn>
+        <v-btn color="primary" @click="loadItems"> Reset</v-btn>
       </template>
 
 
@@ -80,10 +128,11 @@
 import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllGoods from "@/services/getAllGoods";
 import CustomButton from "@/components/UI/CustomButton.vue";
-import getAllData from "@/services/getAllGoods";
+import DeleteDialog from "@/components/DeleteDialog.vue";
 
 export default {
   components: {
+    DeleteDialog,
     CustomButton,
     CustomBlock,
   },
@@ -101,8 +150,24 @@ export default {
       serverItems: [],
       loading: true,
       totalItems: 0,
-      search: { name: '', id: '' },
       error: null,
+      dialogDelete: false,
+      dialog: false,
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        name: '',
+        priority: '',
+        goodCountFirst: '',
+        goodCountSecond: '',
+      },
+      defaultItem:{
+        id: '',
+        name: '',
+        priority: 0,
+        goodCountFirst: 0,
+        goodCountSecond: 0,
+      },
     };
   },
   created() {
@@ -110,7 +175,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'Новый товар' : 'Редактировать товар'
     },
   },
   watch: {
@@ -137,6 +202,10 @@ export default {
         this.loading = false;
       });
     },
+    handleDeletion() {
+      this.closeDelete();
+      this.loadItems();
+    },
     editItem(item) {
       this.editedIndex = this.serverItems.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -149,11 +218,6 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.serverItems.splice(this.editedIndex, 1)
-      this.closeDelete()
-    },
-
     close() {
       this.dialog = false
       this.$nextTick(() => {
@@ -161,9 +225,9 @@ export default {
         this.editedIndex = -1
       })
     },
-
     closeDelete() {
       this.dialogDelete = false
+      this.show = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1

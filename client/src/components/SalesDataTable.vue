@@ -1,6 +1,6 @@
 <template>
   <custom-block class="table">
-    <v-data-table class = "table element"
+    <v-data-table class="table element"
                   v-model:items-per-page="itemsPerPage"
                   :headers="headers"
                   :items-length="totalItems"
@@ -12,10 +12,10 @@
         <v-icon size="small" class="me-2" @click="editItem(item)">
           mdi-pencil
         </v-icon>
-        <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-icon size="small" @click="deleteItem(item)"> mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="loadItems"> Reset </v-btn>
+        <v-btn color="primary" @click="loadItems"> Reset</v-btn>
       </template>
     </v-data-table>
   </custom-block>

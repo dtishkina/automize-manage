@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
-      app
-      v-model="drawer"
-      temporary=""
-      class="navbar"
+    app
+    v-model="drawer"
+    temporary=""
+    class="navbar"
   >
     <div class="navbar__logo" @click="$router.push('/')" @click.stop="toggleDrawer">
       <v-app-bar-nav-icon style="margin-right: 10px">
@@ -13,19 +13,19 @@
     </div>
     <div class="navbar__btns">
       <custom-button
-          style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
-          button-text="Справочники"
-          :svg-path="'src/assets/rows-01.svg'"
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
+        button-text="Справочники"
+        :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
-          style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
-          button-text="Журналы"
-          :svg-path="'src/assets/book-open-01.svg'"
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
+        button-text="Журналы"
+        :svg-path="'src/assets/book-open-01.svg'"
       />
       <custom-button
-          style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
-          button-text="Отчеты"
-          :svg-path="'src/assets/file-03.svg'"
+        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
+        button-text="Отчеты"
+        :svg-path="'src/assets/file-03.svg'"
       />
       <div class="navbar__another">
         <custom-button style="width: 100%" @click="$router.push('/composition')"
@@ -42,16 +42,16 @@
     </v-app-bar-nav-icon>
     <div class="navbar__btns">
       <custom-button
-          style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
-          :svg-path="'src/assets/rows-01.svg'"
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
+        :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
-          style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
-          :svg-path="'src/assets/book-open-01.svg'"
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
+        :svg-path="'src/assets/book-open-01.svg'"
       />
       <custom-button
-          style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
-          :svg-path="'src/assets/file-03.svg'"
+        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
+        :svg-path="'src/assets/file-03.svg'"
       />
     </div>
   </navbar>
