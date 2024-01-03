@@ -3,11 +3,11 @@ package com.example.demo.controllers;
 import com.example.demo.dto.GoodsDTO;
 import com.example.demo.models.Goods;
 import com.example.demo.service.impls.GoodsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/goods")
@@ -31,5 +31,17 @@ public class GoodsControllers {
     @GetMapping("/all_with_warehouse")
     public List<GoodsDTO> getAllGoodsWithWarehouseCounts() {
         return goodsService.getAllGoodsWithWarehouseCounts();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteGood(@PathVariable int id) {
+        System.out.println(goodsService.findById(id));
+        Optional<Goods> goodOptional = goodsService.findById(id);
+        if (goodOptional.isPresent()) {
+            goodsService.delete(goodOptional.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

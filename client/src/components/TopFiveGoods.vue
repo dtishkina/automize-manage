@@ -1,6 +1,6 @@
 <template>
   <custom-block class="table">
-    <v-data-table class = "table element"
+    <v-data-table class="table element"
                   v-model:items-per-page="itemsPerPage"
                   :headers="headers"
                   :items-length="totalItems"
