@@ -44,4 +44,17 @@ public class GoodsControllers {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping
+    public ResponseEntity<Goods> addGood(@RequestBody Goods good) {
+        goodsService.save(good);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Goods> updateEmployee(@PathVariable("id") int id, @RequestBody Goods good) {
+        good.setId(id);
+        goodsService.save(good);
+        return ResponseEntity.ok().build();
+    }
 }

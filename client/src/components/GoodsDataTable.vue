@@ -19,7 +19,7 @@
 
           <v-spacer></v-spacer>
 
-          <v-dialog v-model="dialog" max-width="500px">
+          <v-dialog v-model="dialog" max-width="460px">
             <template v-slot:activator="{ props }">
               <custom-button
                 v-bind="props"
@@ -29,39 +29,55 @@
                 :svg-path="'src/assets/plus.svg'">Новый товар</custom-button>
             </template>
 
-            <v-card>
-              <v-card-title>
-                <span class="text-h4">{{ formTitle }}</span>
+            <v-card style="border-radius: 20px;">
+              <custom-block style="padding: 0 30px">
+              <v-card-title style="margin: 20px 0;">
+                <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
 
-              <v-card-text>
-                <v-container>
+              <v-card-text style="padding: 0 10px">
                   <v-row>
                     <v-col>
                       <v-text-field
-                        v-model="editedItem.name"
-                        label="Наименование товара"
-                      ></v-text-field>
+                        label="Наименование"
+                        rounded
+                        variant="outlined"
+                        v-model="editedItem.name">
+                      </v-text-field>
                     </v-col>
                     <v-col>
                       <v-text-field
                         v-model="editedItem.priority"
+                        rounded
+                        variant="outlined"
                         label="Приоритет"
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                </v-container>
               </v-card-text>
 
-              <v-card-actions>
+              <v-card-actions style="padding: 0 0 20px 56px">
+                <v-container>
                 <v-spacer></v-spacer>
-                <v-btn color="blue-darken-1" variant="text" @click="close">
-                  Cancel
+                <v-btn
+                  style="border: 2px solid lavender;
+                   border-radius: 14px; margin: 0 8px;
+                    width: 34%"
+                  variant="outlined"
+                  size="large"
+                  @click="close">
+                  Отмена
                 </v-btn>
-                <v-btn color="blue-darken-1" variant="text" @click="save">
-                  Save
+                <v-btn
+                  style="border: 2px solid lavender; border-radius: 14px; background-color:lavender; margin: 0 8px;"
+                  variant="outlined"
+                  size="large"
+                  @click="save">
+                  Сохранить
                 </v-btn>
+                </v-container>
               </v-card-actions>
+              </custom-block>
             </v-card>
           </v-dialog>
 
@@ -129,6 +145,7 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllGoods from "@/services/getAllGoods";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import DeleteDialog from "@/components/DeleteDialog.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -158,13 +175,11 @@ export default {
         id: '',
         name: '',
         priority: '',
-        goodCountFirst: '',
-        goodCountSecond: '',
       },
       defaultItem:{
         id: '',
         name: '',
-        priority: 0,
+        priority: '',
         goodCountFirst: 0,
         goodCountSecond: 0,
       },
@@ -175,7 +190,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Новый товар' : 'Редактировать товар'
+      return this.editedIndex === -1 ? 'Добавить товар' : 'Редактировать товар'
     },
   },
   watch: {
@@ -192,7 +207,7 @@ export default {
       getAllGoods.fetch({
         page: 1,
         itemsPerPage: 10,
-      }).then(({ items, total }) => {
+      }).then(({items, total}) => {
         this.serverItems = items;
         this.totalItems = total;
         this.loading = false;
@@ -236,9 +251,21 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.serverItems[this.editedIndex], this.editedItem)
+        axios.patch('/rest/goods/' + this.editedItem.id, this.editedItem)
+          .then(() => {
+            this.loadItems();
+          })
+          .catch(error => {
+            console.error('Error updating item:', error);
+          });
       } else {
-        this.serverItems.push(this.editedItem)
+        axios.post('/rest/goods', this.editedItem)
+          .then(response => {
+            this.serverItems.push(response.data);
+          })
+          .catch(error => {
+            console.error('Error adding new item:', error);
+          });
       }
       this.close()
     },
