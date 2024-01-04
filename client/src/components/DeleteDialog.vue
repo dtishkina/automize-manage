@@ -16,13 +16,14 @@ export default defineComponent({
       required: true
     },
     itemId: {
-      type: [Number],
+      type: [Number, String],
       required: true
     },
   },
+
   methods: {
     cancelDelete() {
-      this.$emit('close');
+      this.$emit('closeDelete');
     },
     confirmDelete() {
       console.log(this.itemId)
