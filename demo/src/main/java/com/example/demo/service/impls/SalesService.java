@@ -6,6 +6,7 @@ import com.example.demo.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,9 @@ public class SalesService implements CrudService<Sales> {
     @Override
     public List<Sales> findAll() {
         return salesRepo.findAll();
+    }
+
+    public List<Sales> getSalesByGoodAndDateRange(int goodId, LocalDate startDate, LocalDate endDate) {
+        return salesRepo.findByGoodIdAndCreateDateBetween(goodId, startDate, endDate);
     }
 }

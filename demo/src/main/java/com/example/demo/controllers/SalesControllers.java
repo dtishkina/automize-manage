@@ -2,10 +2,10 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Sales;
 import com.example.demo.service.impls.SalesService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,5 +20,13 @@ public class SalesControllers {
     @GetMapping
     public List<Sales> getAllSales(){
         return salesService.findAll();
+    }
+
+    @GetMapping("/{goodId}/demand")
+    public List<Sales> getSalesForGood(
+            @PathVariable int goodId,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return salesService.getSalesByGoodAndDateRange(goodId, startDate, endDate);
     }
 }
