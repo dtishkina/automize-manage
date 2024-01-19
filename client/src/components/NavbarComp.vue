@@ -22,11 +22,11 @@
         button-text="Журналы"
         :svg-path="'src/assets/book-open-01.svg'"
       />
-      <custom-button
-        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
-        button-text="Отчеты"
-        :svg-path="'src/assets/file-03.svg'"
-      />
+<!--      <custom-button-->
+<!--        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"-->
+<!--        button-text="Отчеты"-->
+<!--        :svg-path="'src/assets/file-03.svg'"-->
+<!--      />-->
       <div class="navbar__another">
         <custom-button style="width: 100%" @click="$router.push('/composition')"
                        button-text="Выход"
@@ -49,10 +49,10 @@
         style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
         :svg-path="'src/assets/book-open-01.svg'"
       />
-      <custom-button
-        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"
-        :svg-path="'src/assets/file-03.svg'"
-      />
+<!--      <custom-button-->
+<!--        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"-->
+<!--        :svg-path="'src/assets/file-03.svg'"-->
+<!--      />-->
     </div>
   </navbar>
 
