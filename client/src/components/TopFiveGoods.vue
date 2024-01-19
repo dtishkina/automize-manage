@@ -7,6 +7,14 @@
                   :items="serverItems"
                   @update:options="loadItems"
     >
+      <template v-slot:bottom>
+        <custom-button @click="generatePdf"
+                       button-text="Скачать отчёт в PDF"
+                       style="border: 2px solid lavender; border-radius: 14px;
+                padding-top: 8px; background-color:lavender"></custom-button>
+
+        <v-spacer></v-spacer>
+      </template>
     </v-data-table>
   </custom-block>
 </template>
@@ -17,6 +25,10 @@
 import CustomBlock from "@/components/UI/CustomBlock.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import getTopFiveGoods from "@/services/getTopFiveGoods";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 export default {
   components: {
@@ -56,6 +68,29 @@ export default {
         this.error = error;
         this.loading = false;
       });
+    },
+    generatePdf() {
+      const body = this.serverItems.map(item => [
+        item.id,
+        item.name,
+        item.priority,
+        item.numberOfSales,
+      ]);
+
+      const tableHeader = ['ID', 'Наименование', 'Приоритет', 'Заявки'];
+      body.unshift(tableHeader);
+
+      const docDefinition = {
+        content: [
+          {
+            table: {
+              body: body
+            }
+          },
+        ],
+      };
+
+      pdfMake.createPdf(docDefinition).download('top5_goods.pdf');
     },
   },
 }

@@ -7,7 +7,6 @@ const getGoodsList =  {
       return { items: response.data };
     } catch (error) {
       console.error('Ошибка при получении данных: ', error);
-      throw error;
     }
   }
 };

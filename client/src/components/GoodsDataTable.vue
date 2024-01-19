@@ -5,21 +5,29 @@
                   :headers="headers"
                   :items-length="totalItems"
                   :items="serverItems"
-                  show-select=""
+                  :search="search"
                   @update:options="loadItems"
     >
 
       <template v-slot:top>
         <custom-block class="search-header">
           <v-text-field class="search-bar"
+                        v-model="search"
                         density="compact"
                         rounded variant="outlined"
-                        placeholder="Найти по наименованию">
+                        placeholder="Найти товар">
           </v-text-field>
 
           <v-spacer></v-spacer>
 
-          <v-dialog v-model="dialog" max-width="460px">
+          <custom-button @click="generatePdf"
+          button-text="Скачать отчёт в PDF"
+          style="border: 2px solid lavender; border-radius: 14px;
+                padding-top: 8px; background-color:lavender"></custom-button>
+
+          <v-spacer></v-spacer>
+
+          <v-dialog v-model="dialog" max-width="600px">
             <template v-slot:activator="{ props }">
               <custom-button
                 v-bind="props"
@@ -35,7 +43,7 @@
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
 
-              <v-card-text style="padding: 0 10px">
+                <v-card-text style="padding: 0 10px">
                   <v-row>
                     <v-col>
                       <v-text-field
@@ -54,9 +62,27 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-              </v-card-text>
+                  <v-row>
+                    <v-col>
+                      <v-text-field
+                        label="Количество на складе #1"
+                        rounded
+                        variant="outlined"
+                        v-model="editedItem.goodCountFirst">
+                      </v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field
+                        label="Количество на складе #2"
+                        rounded
+                        variant="outlined"
+                        v-model="editedItem.goodCountSecond">
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
 
-              <v-card-actions style="padding: 0 0 20px 56px">
+                <v-card-actions style="padding: 0 0 20px 100px">
                 <v-container>
                 <v-spacer></v-spacer>
                 <v-btn
@@ -116,8 +142,6 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="loadItems"> Reset</v-btn>
       </template>
-
-
     </v-data-table>
   </custom-block>
 </template>
@@ -144,8 +168,11 @@
 import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllGoods from "@/services/getAllGoods";
 import CustomButton from "@/components/UI/CustomButton.vue";
-import DeleteDialog from "@/components/DeleteDialog.vue";
+import DeleteDialog from "@/components/DeleteGoodDialog.vue";
 import axios from "axios";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default {
   components: {
@@ -155,6 +182,7 @@ export default {
   },
   data() {
     return {
+      search: '',
       itemsPerPage: 10,
       headers: [
         { title: 'ID', value: 'id', align: 'start', sortable: true },
@@ -175,6 +203,8 @@ export default {
         id: '',
         name: '',
         priority: '',
+        goodCountFirst: '',
+        goodCountSecond: '',
       },
       defaultItem:{
         id: '',
@@ -268,6 +298,31 @@ export default {
           });
       }
       this.close()
+    },
+
+    generatePdf() {
+      const body = this.serverItems.map(item => [
+        item.id,
+        item.name,
+        item.priority,
+        item.goodCountFirst,
+        item.goodCountSecond,
+      ]);
+
+      const tableHeader = ['ID', 'Наименование', 'Приоритет', 'На складе #1', 'На складе #2'];
+      body.unshift(tableHeader);
+
+      const docDefinition = {
+        content: [
+          {
+            table: {
+              body: body
+            }
+          },
+        ],
+      };
+
+      pdfMake.createPdf(docDefinition).download('all_goods.pdf');
     },
   },
 };
