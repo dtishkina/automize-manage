@@ -4,7 +4,7 @@
           @click="toggleSelection"
   >
     <img v-if="svgPath" :src="svgPath" alt="Icon">
-    <span v-if="buttonText" style="margin-left: 8px">{{ buttonText }}</span>
+    <span v-if="buttonText" style="margin-left: 8px; margin-top: 2px">{{ buttonText }}</span>
   </button>
 </template>
 
