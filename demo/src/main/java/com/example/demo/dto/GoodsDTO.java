@@ -10,7 +10,7 @@ import lombok.Setter;
 public class GoodsDTO {
     private int id;
     private String name;
-    private int priority;
+    private String priority;
     private int numberOfSales;
     private int goodCountFirst;
     private int goodCountSecond;
