@@ -25,20 +25,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(HttpMethod.DELETE, "/rest/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.POST, "/rest/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.PATCH, "/rest/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.GET, "/rest/**").hasAnyRole("ADMIN", "OBSERVER")
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(login -> login
-//                        .loginPage("http://127.0.0.1:9000/login")
-//                        .loginProcessingUrl("/login")
-//                        .defaultSuccessUrl("/", true)
-//                        .failureUrl("/login?error=true")
-//                        .permitAll()
-//                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.DELETE, "/rest/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/rest/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/rest/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/rest/**").hasAnyRole("ADMIN", "OBSERVER")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(login -> login
+                        .loginPage("http://127.0.0.1:9000/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
                 .httpBasic();
 
         return http.build();

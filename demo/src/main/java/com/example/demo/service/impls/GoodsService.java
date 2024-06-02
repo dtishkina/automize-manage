@@ -84,12 +84,17 @@ public class GoodsService implements CrudService <Goods>{
         dto.setId(good.getId());
         dto.setName(good.getName());
         dto.setPriority(good.getPriority());
-        dto.setGoodCountFirst(warehouseFirstRepo.findByGoodsId(good.getId())
-                .map(WarehouseFirst::getGoodCountFirst).orElse(0));
-        dto.setGoodCountSecond(warehouseSecondRepo.findByGoodsId(good.getId())
-                .map(WarehouseSecond::getGoodCountSecond).orElse(0));
+
+        List<WarehouseFirst> warehouseFirstList = warehouseFirstRepo.findByGoodsId(good.getId());
+        int goodCountFirst = warehouseFirstList.stream().mapToInt(WarehouseFirst::getGoodCountFirst).sum();
+        dto.setGoodCountFirst(goodCountFirst);
+
+        List<WarehouseSecond> warehouseSecondList = warehouseSecondRepo.findByGoodsId(good.getId());
+        int goodCountSecond = warehouseSecondList.stream().mapToInt(WarehouseSecond::getGoodCountSecond).sum();
+        dto.setGoodCountSecond(goodCountSecond);
 
         return dto;
     }
+
 
 }
