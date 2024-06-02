@@ -19,8 +19,8 @@ export default {
       formData.append('password', this.password);
 
       axios.post('/login', formData)
-        .then(response => {
-          window.location.href = '/';
+        .then(() => {
+          window.location.href = '/references';
         })
         .catch(error => {
           console.error('Error on login:', error);

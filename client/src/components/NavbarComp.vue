@@ -2,8 +2,8 @@
   <v-navigation-drawer
     app
     v-model="drawer"
-    temporary=""
-    class="navbar"
+    temporary=temporary
+    class="side-app-bar"
   >
     <div class="navbar__logo" @click="$router.push('/')" @click.stop="toggleDrawer">
       <v-app-bar-nav-icon style="margin-right: 10px">
@@ -13,7 +13,7 @@
     </div>
     <div class="navbar__btns">
       <custom-button
-        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/references')"
         button-text="Справочники"
         :svg-path="'src/assets/rows-01.svg'"
       />
@@ -22,11 +22,6 @@
         button-text="Журналы"
         :svg-path="'src/assets/book-open-01.svg'"
       />
-<!--      <custom-button-->
-<!--        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"-->
-<!--        button-text="Отчеты"-->
-<!--        :svg-path="'src/assets/file-03.svg'"-->
-<!--      />-->
       <div class="navbar__another">
         <custom-button style="width: 100%" @click="$router.push('/composition')"
                        button-text="Выход"
@@ -36,25 +31,22 @@
     </div>
   </v-navigation-drawer>
 
-  <navbar class="side-app-bar">
+  <div class="side-app-bar">
     <v-app-bar-nav-icon @click.stop="drawer = !drawer">
       <img :src="'src/assets/menu-01.svg'" alt="Icon"/>
     </v-app-bar-nav-icon>
     <div class="navbar__btns">
       <custom-button
-        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/')"
+
+        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/references')"
         :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
         style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
         :svg-path="'src/assets/book-open-01.svg'"
       />
-<!--      <custom-button-->
-<!--        style="margin-bottom: 5px; width: 100%" @click="$router.push('/report')"-->
-<!--        :svg-path="'src/assets/file-03.svg'"-->
-<!--      />-->
     </div>
-  </navbar>
+  </div>
 
 </template>
 
@@ -79,13 +71,11 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-  height: 100%;
-  width: 220px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+
+.side-app-bar {
+  height: 100vh;
+  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.03);
+  margin: 2px;
 }
 
 .navbar__btns {
@@ -106,10 +96,5 @@ export default {
   align-items: center;
 }
 
-.side-app-bar {
-  height: 100vh;
-  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.03);
-  margin: 5px;
-}
 
 </style>

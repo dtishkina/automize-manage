@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <div class="app-container">
-        <navbar></navbar>
+        <navbar v-if="!$route.meta.hideNavbar" />
         <div class="app-content">
           <router-view></router-view>
         </div>

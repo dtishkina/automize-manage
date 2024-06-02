@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ReferencesPage from "@/layouts/pages/ReferencesPage.vue";
 import AuthPage from "@/layouts/pages/AuthPage.vue";
-import ReportPage from "@/layouts/pages/ReportPage.vue";
 import LogsPage from "@/layouts/pages/LogsPage.vue";
 
 const routes = [
   {
     path: '/',
-    component: ReferencesPage
+    redirect: '/login',
   },
   {
     path: '/logs',
     component: LogsPage
   },
   {
-    path: '/report',
-    component: ReportPage
+    path: '/login',
+    component: AuthPage,
+    meta: { hideNavbar: true }
   },
   {
-    path: '/login',
-    component: AuthPage
-  },
+    path: '/references',
+    component: ReferencesPage
+  }
 ]
 
 const router = createRouter({
