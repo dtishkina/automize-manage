@@ -1,6 +1,6 @@
 <script>
-import DataTable from "@/components/GoodsDataTable.vue";
-import TopFiveGoods from "@/components/TopFiveGoods.vue";
+import DataTable from "@/components/tables/GoodsDataTable.vue";
+import TopFiveGoods from "@/components/tables/TopFiveGoods.vue";
 import SearchGoodDemand from "@/components/SearchGoodDemand.vue";
 
 export default {

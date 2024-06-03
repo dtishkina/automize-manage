@@ -11,7 +11,7 @@
 
 <script>
 import CustomHeader from "@/components/UI/CustomHeader.vue";
-import SalesDataTable from "@/components/SalesDataTable.vue";
+import SalesDataTable from "@/components/tables/SalesDataTable.vue";
 
 export default {
   components: {SalesDataTable, CustomHeader}

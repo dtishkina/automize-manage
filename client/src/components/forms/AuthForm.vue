@@ -18,12 +18,13 @@ export default {
       formData.append('username', this.username);
       formData.append('password', this.password);
 
-      axios.post('/login', formData)
+      axios.post(`rest/login`, formData)
         .then(() => {
           window.location.href = '/references';
         })
         .catch(error => {
           console.error('Error on login:', error);
+          window.location.href = '/error';
         });
     },
   },
@@ -42,8 +43,8 @@ export default {
 
     <v-card-text>
       <v-container>
-        <v-text-field label="Имя пользователя" required rounded variant="outlined"></v-text-field>
-        <v-text-field label="Пароль" type="password" required rounded variant="outlined"></v-text-field>
+        <v-text-field v-model="username" label="Имя пользователя" required rounded variant="outlined"></v-text-field>
+        <v-text-field v-model="password" label="Пароль" type="password" required rounded variant="outlined"></v-text-field>
       </v-container>
     </v-card-text>
 

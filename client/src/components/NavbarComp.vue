@@ -23,7 +23,7 @@
         :svg-path="'src/assets/book-open-01.svg'"
       />
       <div class="navbar__another">
-        <custom-button style="width: 100%" @click="$router.push('/composition')"
+        <custom-button style="width: 100%" @click="$router.push('/login')"
                        button-text="Выход"
                        :svg-path="'src/assets/log-out-03.svg'"
         />
