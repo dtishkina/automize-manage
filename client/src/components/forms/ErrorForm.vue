@@ -8,7 +8,7 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
     <div class="block">
       <v-alert-title class="error-title">Ошибка 404</v-alert-title>
       <div class="error-message">Страница не найдена, попытайтесь еще раз!</div>
-      <v-img class="img" src="C:\Users\tiski\IdeaProjects\automize-manage\client\src\assets\error.png"></v-img>
+      <v-img class="img" src="\src\assets\error.png"></v-img>
     </div>
   </custom-block>
 </template>
