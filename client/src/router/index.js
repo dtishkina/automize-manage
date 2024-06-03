@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ReferencesPage from "@/layouts/pages/ReferencesPage.vue";
 import AuthPage from "@/layouts/pages/AuthPage.vue";
 import LogsPage from "@/layouts/pages/LogsPage.vue";
+import ErrorPage from "@/layouts/pages/ErrorPage.vue";
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
   {
     path: '/references',
     component: ReferencesPage
+  },
+  {
+    path: '/error',
+    component: ErrorPage,
+    meta: { hideNavbar: true }
   }
 ]
 
