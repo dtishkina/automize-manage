@@ -3,6 +3,7 @@
     <v-main>
       <div class="app-container">
         <navbar v-if="!$route.meta.hideNavbar" />
+        <no-info-header v-if="$route.meta.showNoInfoHeader" />
         <div class="app-content">
           <router-view></router-view>
         </div>
@@ -13,10 +14,12 @@
 
 <script>
 import Navbar from '@/components/NavbarComp.vue'
+import NoInfoHeader from "@/components/UI/NoInfoHeader.vue";
 export default {
   name: 'App',
 
   components: {
+    NoInfoHeader,
     Navbar,
   },
 

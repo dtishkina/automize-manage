@@ -16,7 +16,7 @@ const routes = [
   {
     path: '/login',
     component: AuthPage,
-    meta: { hideNavbar: true }
+    meta: { hideNavbar: true, showNoInfoHeader: true}
   },
   {
     path: '/references',
@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/error',
     component: ErrorPage,
-    meta: { hideNavbar: true }
+    meta: { hideNavbar: true, showNoInfoHeader: true}
   }
 ]
 
