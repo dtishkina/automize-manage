@@ -36,7 +36,8 @@
 
 .header-content{
   display: flex;
-  width: 29%;
+  width: 400px;
   height: 100%;
+  margin: 0 auto;
 }
 </style>
