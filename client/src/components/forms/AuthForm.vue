@@ -71,12 +71,14 @@ export default {
           rounded="pill"
           color="red"
           variant="tonal"
-          style="margin-bottom: 660px;"
+          class="snackbar"
         >
           {{ text }}
           <template v-slot:actions>
-            <v-btn variant="text" @click="snackbar = false">
-              <img src="\src\assets\x-close.svg" style="height: 24px" alt="x">
+            <v-btn variant="text"
+                   rounded
+                   @click="snackbar = false">
+              <img src="\src\assets\x-close.svg" style="height: 24px">
             </v-btn>
           </template>
         </v-snackbar>
@@ -110,5 +112,13 @@ export default {
 
 .headline-block {
   margin-top: 16px;
+}
+
+.snackbar{
+  position: absolute;
+  bottom: 700px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 </style>
