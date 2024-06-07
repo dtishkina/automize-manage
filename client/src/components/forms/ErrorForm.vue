@@ -7,7 +7,7 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
   <custom-block class="custom-block">
     <div class="block">
       <v-alert-title class="error-title">Ошибка 404</v-alert-title>
-      <div class="error-message">Страница не найдена, попытайтесь еще раз!</div>
+      <div class="error-message">Страница не найдена</div>
       <v-img class="img" src="\src\assets\error.png"></v-img>
     </div>
   </custom-block>
@@ -18,10 +18,10 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
 .custom-block{
   border: 2px solid black;
   border-radius: 20px;
-  height: 20lh;
 }
 
 .block{
+  width: 100%;
   padding: 50px;
 }
 
@@ -36,9 +36,8 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
 }
 
 .img{
-  width: 150px;
-  height: 150px;
-  margin: 0 0 0 300px;
+  width: 26%;
+  margin: 0 0 0 60%;
 }
 
 </style>

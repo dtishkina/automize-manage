@@ -9,7 +9,7 @@ import ErrorForm from "@/components/forms/ErrorForm.vue";
 
 <style scoped>
 .error-form{
-  width: 30lh;
-  margin: 100px auto 200px;
+  width: 70%;
+  margin: 10% auto 20%;
 }
 </style>
