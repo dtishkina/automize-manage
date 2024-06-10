@@ -6,110 +6,34 @@
                   :items-length="totalItems"
                   :items="serverItems"
                   :search="search"
-                  @update:options="loadItems"
-    >
+                  @update:options="loadItems">
       <template v-slot:top>
         <custom-block class="search-header">
-        <v-text-field class="search-bar"
-                      v-model="search"
-                      density="compact"
-                      rounded variant="outlined"
-                      placeholder="Найти заявку">
-        </v-text-field>
-
+          <v-text-field class="search-bar"
+                        v-model="search"
+                        density="compact"
+                        rounded
+                        variant="outlined"
+                        placeholder="Найти заявку">
+          </v-text-field>
           <v-spacer></v-spacer>
-
           <custom-button @click="generatePdf"
                          button-text="Скачать отчёт в PDF"
-                         style="border: 2px solid lavender; border-radius: 14px;
-                padding-top: 8px; background-color:lavender"></custom-button>
-
+                         class="pdf-button"></custom-button>
           <v-spacer></v-spacer>
-
-        <v-dialog v-model="dialog" max-width="460px">
-          <template v-slot:activator="{ props }">
-            <custom-button
-              v-bind="props"
-              style="border: 2px solid lavender; border-radius: 14px;
-                                 padding-top: 8px; background-color:lavender;"
-              button-text="Добавить заявку"
-              :svg-path="'src/assets/plus.svg'">Новый товар</custom-button>
-          </template>
-
-          <v-card style="border-radius: 20px;">
-            <custom-block style="padding: 0 30px">
-              <v-card-title style="margin: 20px 0;">
-                <span class="text-h5">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text style="padding: 0 10px">
-                <v-row>
-                  <v-col>
-                    <v-text-field
-                      label="ID товара"
-                      rounded
-                      variant="outlined"
-                      v-model="editedItem.goodId">
-                    </v-text-field>
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="editedItem.goodCount"
-                      rounded
-                      variant="outlined"
-                      label="Количество"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-text-field
-                      v-model="editedItem.createDate"
-                      rounded
-                      variant="outlined"
-                      type="date"
-                      label="Дата"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-
-              <v-card-actions style="padding: 0 0 20px 56px">
-                <v-container>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    style="border: 2px solid lavender;
-                   border-radius: 14px; margin: 0 8px;
-                    width: 34%"
-                    variant="outlined"
-                    size="large"
-                    @click="close">
-                    Отмена
-                  </v-btn>
-                  <v-btn
-                    style="border: 2px solid lavender; border-radius: 14px; background-color:lavender; margin: 0 8px;"
-                    variant="outlined"
-                    size="large"
-                    @click="save">
-                    Сохранить
-                  </v-btn>
-                </v-container>
-              </v-card-actions>
-            </custom-block>
-          </v-card>
-        </v-dialog>
-
-        <delete-dialog
-          :show="dialogDelete"
-          :itemName="editedItem.id"
-          :itemId="editedItem.goodId"
-          @close="closeDelete"
-          @deleted="handleDeletion"
-          @click="closeDelete"
-        ></delete-dialog>
+          <custom-button @click="openDialog"
+                         class="pdf-button"
+                         button-text="Добавить заявку"
+                         :svg-path="'src/assets/plus.svg'">Новый товар</custom-button>
+          <delete-dialog
+            :show="dialogDelete"
+            :itemName="editedItem.id"
+            :itemId="editedItem.goodId"
+            @close="closeDelete"
+            @deleted="handleDeletion"
+            @click="closeDelete"></delete-dialog>
         </custom-block>
       </template>
-
       <template v-slot:item.actions="{ item }">
         <v-btn-group>
           <v-btn variant="text"
@@ -131,27 +55,33 @@
         </v-btn-group>
       </template>
     </v-data-table>
+    <edit-sale-dialog
+      :dialog="dialog"
+      :editedIndex="editedIndex"
+      :editedItem="editedItem"
+      @close="close"
+      @save="save">
+    </edit-sale-dialog>
   </custom-block>
 </template>
 
-
 <script>
-
 import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllSales from "@/services/getAllSales";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import DeleteDialog from "@/components/dialogs/DeleteSaleDialog.vue";
+import EditSaleDialog from "@/components/dialogs/EditSaleDialog.vue"; // Импортируем новый компонент
 import axios from "axios";
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 
 export default {
   components: {
     DeleteDialog,
     CustomButton,
     CustomBlock,
+    EditSaleDialog, // Добавляем новый компонент
   },
   data() {
     return {
@@ -175,7 +105,7 @@ export default {
         goodCount: '',
         createDate: '',
       },
-      defaultItem:{
+      defaultItem: {
         id: '',
         goodId: '',
         goodCount: '',
@@ -186,17 +116,12 @@ export default {
   created() {
     this.loadItems();
   },
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? 'Новая заявка' : 'Редактировать заявку'
-    },
-  },
   watch: {
     dialog(val) {
-      val || this.close()
+      val || this.close();
     },
     dialogDelete(val) {
-      val || this.closeDelete()
+      val || this.closeDelete();
     },
   },
   methods: {
@@ -220,33 +145,35 @@ export default {
       this.loadItems();
     },
     editItem(item) {
-      this.editedIndex = this.serverItems.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
+      this.editedIndex = this.serverItems.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
     },
-
     deleteItem(item) {
-      this.editedIndex = this.serverItems.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
+      this.editedIndex = this.serverItems.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
     },
-
+    openDialog() {
+      this.editedIndex = -1;
+      this.editedItem = Object.assign({}, this.defaultItem);
+      this.dialog = true;
+    },
     close() {
-      this.dialog = false
+      this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
     closeDelete() {
-      this.dialogDelete = false
+      this.dialogDelete = false;
       this.show = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
-
     save() {
       if (this.editedIndex > -1) {
         axios.patch('/rest/sales/' + this.editedItem.id, this.editedItem)
@@ -265,9 +192,8 @@ export default {
             console.error('Error adding new item:', error);
           });
       }
-      this.close()
+      this.close();
     },
-
     generatePdf() {
       const body = this.serverItems.map(item => [
         item.id,
@@ -275,20 +201,17 @@ export default {
         item.goodCount,
         item.createDate,
       ]);
-
       const tableHeader = ['ID товара', 'ID заявки', 'Количество', 'Дата'];
       body.unshift(tableHeader);
-
       const docDefinition = {
         content: [
           {
             table: {
-              body: body
-            }
+              body: body,
+            },
           },
         ],
       };
-
       pdfMake.createPdf(docDefinition).download('sales.pdf');
     },
   },
@@ -296,9 +219,16 @@ export default {
 </script>
 
 <style>
-.search-header{
+.search-header {
   height: 75px;
   display: flex;
   flex-direction: row;
+}
+
+.pdf-button {
+  border: 2px solid lavender;
+  border-radius: 14px;
+  padding-top: 8px;
+  background-color: lavender;
 }
 </style>
