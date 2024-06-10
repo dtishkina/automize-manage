@@ -10,8 +10,8 @@
       <template v-slot:bottom>
         <custom-button @click="generatePdf"
                        button-text="Скачать отчёт в PDF"
-                       style="border: 2px solid lavender; border-radius: 14px;
-                padding-top: 8px; background-color:lavender"></custom-button>
+                       class="pdf-button">
+        </custom-button>
 
         <v-spacer></v-spacer>
       </template>
@@ -99,5 +99,12 @@ export default {
 
 
 <style scoped>
+
+.pdf-button{
+  border: 2px solid lavender;
+  border-radius: 14px;
+  padding-top: 8px;
+  background-color:lavender;
+}
 
 </style>

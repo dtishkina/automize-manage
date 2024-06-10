@@ -4,7 +4,7 @@
           @click="toggleSelection"
   >
     <img v-if="svgPath" :src="svgPath" alt="Icon">
-    <span v-if="buttonText" style="margin-left: 8px; margin-top: 2px">{{ buttonText }}</span>
+    <span v-if="buttonText" class="button-text">{{ buttonText }}</span>
   </button>
 </template>
 
@@ -42,6 +42,11 @@ export default {
 
 .custom-button:hover {
   background-color: lavender;
+}
+
+.button-text{
+  margin-left: 8px;
+  margin-top: 2px
 }
 
 </style>
