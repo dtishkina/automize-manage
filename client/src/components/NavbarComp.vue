@@ -2,7 +2,7 @@
   <v-navigation-drawer
     app
     v-model="drawer"
-    temporary=temporary
+    temporary
     class="side-app-bar"
   >
     <div class="navbar__logo" @click="$router.push('/')" @click.stop="toggleDrawer">
@@ -23,10 +23,16 @@
         :svg-path="'src/assets/book-open-01.svg'"
       />
       <div class="navbar__another">
-        <custom-button style="width: 100%" @click="$router.push('/login')"
+        <custom-button style="width: 100%"
                        button-text="Выход"
                        :svg-path="'src/assets/log-out-03.svg'"
+                       @click="showLogOutDialog"
         />
+        <log-out-dialog
+          v-model="logOutDialogVisible"
+          @cancelLogout="closeLogOutDialog"
+          @confirmLogout="handleLogout"
+        ></log-out-dialog>
       </div>
     </div>
   </v-navigation-drawer>
@@ -37,7 +43,6 @@
     </v-app-bar-nav-icon>
     <div class="navbar__btns">
       <custom-button
-
         style="margin-bottom: 5px; width: 100%;" @click="$router.push('/references')"
         :svg-path="'src/assets/rows-01.svg'"
       />
@@ -47,31 +52,38 @@
       />
     </div>
   </div>
-
 </template>
 
 <script>
-
 import CustomButton from "@/components/UI/CustomButton.vue";
-
+import LogOutDialog from "@/components/dialogs/LogOutDialog.vue";
 
 export default {
-  components: {CustomButton},
+  components: { LogOutDialog, CustomButton },
   data() {
     return {
       drawer: false,
-    }
+      logOutDialogVisible: false,
+    };
   },
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer;
     },
+    showLogOutDialog() {
+      this.logOutDialogVisible = true;
+    },
+    closeLogOutDialog() {
+      this.logOutDialogVisible = false;
+    },
+    handleLogout() {
+      this.logOutDialogVisible = false;
+      this.$router.push('/login');
+    },
   },
-}
-</script>
+}</script>
 
 <style scoped>
-
 .side-app-bar {
   height: 100vh;
   box-shadow: 2px 0 2px rgba(0, 0, 0, 0.03);
@@ -86,7 +98,7 @@ export default {
   margin-top: auto;
 }
 
-.navbar__logo{
+.navbar__logo {
   margin-top: 20px;
   font-size: x-large;
   font-weight: bold;
@@ -95,6 +107,4 @@ export default {
   flex-direction: row;
   align-items: center;
 }
-
-
 </style>
