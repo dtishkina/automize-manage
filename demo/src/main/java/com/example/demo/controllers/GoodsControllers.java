@@ -52,7 +52,7 @@ public class GoodsControllers {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Goods> updateEmployee(@PathVariable("id") int id, @RequestBody Goods good) {
+    public ResponseEntity<Goods> updateGood(@PathVariable("id") int id, @RequestBody Goods good) {
         good.setId(id);
         goodsService.save(good);
         return ResponseEntity.ok().build();
