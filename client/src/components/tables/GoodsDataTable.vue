@@ -92,7 +92,7 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllGoods from "@/services/getAllGoods";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import DeleteDialog from "@/components/dialogs/DeleteGoodDialog.vue";
-import EditGoodDialog from "@/components/dialogs/EditGoodDialog.vue"; // Импортируем новый компонент
+import EditGoodDialog from "@/components/dialogs/EditGoodDialog.vue";
 import axios from "axios";
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -103,7 +103,7 @@ export default {
     DeleteDialog,
     CustomButton,
     CustomBlock,
-    EditGoodDialog, // Добавляем новый компонент
+    EditGoodDialog,
   },
   data() {
     return {
