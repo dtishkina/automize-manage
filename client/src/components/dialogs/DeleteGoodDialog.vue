@@ -40,8 +40,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-dialog v-model="show" max-width="330px">
-    <v-card style="border-radius: 20px">
+  <v-dialog v-model="show" max-width="360px">
+    <v-card class="custom-card">
       <custom-block>
 
           <v-card-title class="text-h6" style="text-align: center;">
@@ -54,13 +54,13 @@ export default defineComponent({
         <v-card-actions style="margin: 0 17px">
           <v-container>
             <v-btn
-              style="border: 2px solid lavender; border-radius: 14px; margin: 0 8px;"
+              class="action-button"
               variant="outlined"
               @click="cancelDelete">
               Отмена
             </v-btn>
             <v-btn
-              style="border: 2px solid lavender; border-radius: 14px; background-color:lavender; margin: 0 8px;"
+              class="action-button action-button-primary"
               variant="outlined"
               @click="confirmDelete">
               Удалить
@@ -72,7 +72,3 @@ export default defineComponent({
     </v-card>
   </v-dialog>
 </template>
-
-<style>
-
-</style>

@@ -1,11 +1,14 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px">
-    <v-card style="border-radius: 20px;">
-      <custom-block style="padding: 0 30px">
-        <v-card-title style="margin: 20px 0;">
+  <v-dialog v-model="dialog"
+            max-width="600px">
+    <v-card class="custom-card">
+      <custom-block class="dialog-custom-block">
+
+        <v-card-title class="dialog-title">
           <span class="text-h5">{{ formTitle }}</span>
         </v-card-title>
-        <v-card-text style="padding: 0 10px">
+
+        <v-card-text class="dialog-text">
           <v-row>
             <v-col>
               <v-text-field
@@ -43,18 +46,19 @@
             </v-col>
           </v-row>
         </v-card-text>
+
         <v-card-actions style="padding: 0 0 20px 100px">
           <v-container>
             <v-spacer></v-spacer>
             <v-btn
-              style="border: 2px solid lavender; border-radius: 14px; margin: 0 8px; width: 34%"
+              class="action-button"
               variant="outlined"
               size="large"
               @click="close">
               Отмена
             </v-btn>
             <v-btn
-              style="border: 2px solid lavender; border-radius: 14px; background-color:lavender; margin: 0 8px;"
+              class="action-button-primary action-button"
               variant="outlined"
               size="large"
               @click="save">
@@ -62,6 +66,7 @@
             </v-btn>
           </v-container>
         </v-card-actions>
+
       </custom-block>
     </v-card>
   </v-dialog>
@@ -104,5 +109,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
