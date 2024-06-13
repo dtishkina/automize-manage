@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template v-slot>
-    <v-tabs justify="space-between" style="margin-bottom: 20px;"
+    <v-tabs class="custom-tabs"
       v-model="chip">
       <v-row>
         <v-col cols="auto">
@@ -54,6 +54,7 @@ export default {
             >
               {{ tag }}
             </v-chip>
+
           </v-chip-group>
         </v-col>
       </v-row>
@@ -80,4 +81,8 @@ export default {
   align-items: flex-start;
 }
 
+.custom-tabs{
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 </style>

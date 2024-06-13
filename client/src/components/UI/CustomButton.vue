@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .custom-button {
   display: flex;
   align-items: flex-start;
@@ -36,7 +36,7 @@ export default {
   cursor: pointer;
   color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   transition: background-color 0.3s;
 }
 
@@ -45,8 +45,7 @@ export default {
 }
 
 .button-text{
-  margin-left: 8px;
-  margin-top: 2px
+  margin: 0 8px;
 }
 
 </style>

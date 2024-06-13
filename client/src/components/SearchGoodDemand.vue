@@ -1,27 +1,41 @@
 <template>
   <v-container style="padding: 0">
-    <v-autocomplete style="margin-top: 14px; width: 800px"
+    <v-autocomplete class="autocomplete-component"
                     v-model="goodId"
                     label="Введите наименование, чтобы посмотреть изменение спроса"
                     :items="goodsItems"
                     item-value="id"
                     item-title="name"
-                    rounded=""
+                    rounded
                     variant="outlined"
     ></v-autocomplete>
 
-    <custom-block style="padding: 0 10px">
+    <custom-block class="choice-panel">
       <v-container>
         <v-banner
           text="Выберите промежуток времени для изменения спроса товара"
           :stacked="false">
         </v-banner>
-        <v-row justify="space-between" style="margin-top: 16px;">
+        <v-row style="margin-top: 16px;">
           <v-col>
-            <v-text-field v-model="startDate" label="Начало" type="date" required rounded variant="outlined"></v-text-field>
+            <v-text-field
+              v-model="startDate"
+              label="Начало"
+              type="date"
+              required
+              rounded
+              variant="outlined">
+            </v-text-field>
           </v-col>
           <v-col>
-            <v-text-field v-model="endDate" label="Конец" type="date" required rounded variant="outlined"></v-text-field>
+            <v-text-field
+              v-model="endDate"
+              label="Конец"
+              type="date"
+              required
+              rounded
+              variant="outlined">
+            </v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -29,7 +43,7 @@
 
     <custom-button @click="fetchDemandChanges"
                    button-text="Показать изменение спроса"
-                   style="margin: 20px auto; border: 2px solid lavender; border-radius: 14px; background: lavender">
+                   class="demand-button">
     </custom-button>
 
     <custom-block v-if="isTableVisible">
@@ -136,3 +150,23 @@ export default {
   }
 }
 </script>
+
+<style>
+
+.autocomplete-component{
+  margin-top: 14px;
+  width: 800px;
+}
+
+.choice-panel{
+  padding: 0 10px !important;
+  justify-content: space-between;
+}
+
+.demand-button{
+  margin: 20px auto;
+  border: 2px solid lavender;
+  border-radius: 14px;
+  background: lavender;
+}
+</style>
