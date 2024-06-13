@@ -21,15 +21,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-.references-page{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-
-
-</style>

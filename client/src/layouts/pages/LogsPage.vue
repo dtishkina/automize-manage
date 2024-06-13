@@ -17,7 +17,3 @@ export default {
   components: {SalesDataTable, CustomHeader}
 }
 </script>
-
-<style scoped>
-
-</style>
