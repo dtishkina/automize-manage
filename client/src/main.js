@@ -1,5 +1,6 @@
 import { registerPlugins } from '@/plugins'
 import './styles/dialog.scss';
+import './styles/table.scss';
 
 
 import App from './App.vue'

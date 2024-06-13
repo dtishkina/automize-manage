@@ -7,6 +7,7 @@
                   :items="serverItems"
                   :search="search"
                   @update:options="loadItems">
+
       <template v-slot:top>
         <custom-block class="search-header">
           <v-text-field class="search-bar"
@@ -25,6 +26,7 @@
                          class="pdf-button"
                          button-text="Добавить заявку"
                          :svg-path="'src/assets/plus.svg'">Новый товар</custom-button>
+
           <delete-dialog
             :show="dialogDelete"
             :itemName="editedItem.id"
@@ -33,7 +35,9 @@
             @deleted="handleDeletion"
             @click="closeDelete"></delete-dialog>
         </custom-block>
+
       </template>
+
       <template v-slot:item.actions="{ item }">
         <v-btn-group>
           <v-btn variant="text"
@@ -54,7 +58,9 @@
           </v-btn>
         </v-btn-group>
       </template>
+
     </v-data-table>
+
     <edit-sale-dialog
       :dialog="dialog"
       :editedIndex="editedIndex"
@@ -62,6 +68,7 @@
       @close="close"
       @save="save">
     </edit-sale-dialog>
+
   </custom-block>
 </template>
 
@@ -70,7 +77,7 @@ import CustomBlock from "@/components/UI/CustomBlock.vue";
 import getAllSales from "@/services/getAllSales";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import DeleteDialog from "@/components/dialogs/DeleteSaleDialog.vue";
-import EditSaleDialog from "@/components/dialogs/EditSaleDialog.vue"; // Импортируем новый компонент
+import EditSaleDialog from "@/components/dialogs/EditSaleDialog.vue";
 import axios from "axios";
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -81,7 +88,7 @@ export default {
     DeleteDialog,
     CustomButton,
     CustomBlock,
-    EditSaleDialog, // Добавляем новый компонент
+    EditSaleDialog,
   },
   data() {
     return {
@@ -218,17 +225,6 @@ export default {
 };
 </script>
 
-<style>
-.search-header {
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-}
+<style scoped>
 
-.pdf-button {
-  border: 2px solid lavender;
-  border-radius: 14px;
-  padding-top: 8px;
-  background-color: lavender;
-}
 </style>

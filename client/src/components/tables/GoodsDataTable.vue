@@ -7,6 +7,7 @@
                   :items="serverItems"
                   :search="search"
                   @update:options="loadItems">
+
       <template v-slot:top>
         <custom-block class="search-header">
           <v-text-field class="search-bar"
@@ -19,16 +20,15 @@
           <v-spacer></v-spacer>
           <custom-button @click="generatePdf"
                          button-text="Скачать отчёт в PDF"
-                         style="border: 2px solid lavender; border-radius: 14px;
-                                padding-top: 8px; background-color:lavender">
+                         class="pdf-button">
           </custom-button>
           <v-spacer></v-spacer>
           <custom-button @click="openDialog"
-                         style="border: 2px solid lavender; border-radius: 14px;
-                                padding-top: 8px; background-color:lavender"
                          button-text="Новый товар"
+                         class="pdf-button"
                          :svg-path="'src/assets/plus.svg'">Новый товар
           </custom-button>
+
           <delete-dialog
             :show="dialogDelete"
             :itemName="editedItem.name"
@@ -37,8 +37,10 @@
             @deleted="handleDeletion"
             @click="closeDelete">
           </delete-dialog>
+
         </custom-block>
       </template>
+
       <template v-slot:item.actions="{ item }">
         <v-btn-group>
           <v-btn variant="text"
@@ -59,10 +61,13 @@
           </v-btn>
         </v-btn-group>
       </template>
+
       <template v-slot:no-data>
-        <v-btn color="primary" @click="loadItems">Reset</v-btn>
+        <v-btn color="primary" @click="loadItems"></v-btn>
       </template>
+
     </v-data-table>
+
     <edit-good-dialog
       :dialog="dialog"
       :editedIndex="editedIndex"
@@ -70,22 +75,9 @@
       @close="close"
       @save="save">
     </edit-good-dialog>
+
   </custom-block>
 </template>
-
-<style>
-.element {
-  padding: 10px;
-}
-.search-bar {
-  width: 45%;
-}
-.search-header {
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-}
-</style>
 
 <script>
 import CustomBlock from "@/components/UI/CustomBlock.vue";
@@ -250,3 +242,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+</style>

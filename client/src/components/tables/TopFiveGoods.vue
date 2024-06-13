@@ -100,11 +100,4 @@ export default {
 
 <style scoped>
 
-.pdf-button{
-  border: 2px solid lavender;
-  border-radius: 14px;
-  padding-top: 8px;
-  background-color:lavender;
-}
-
 </style>
