@@ -82,7 +82,9 @@ export default {
             </v-btn>
           </template>
         </v-snackbar>
+
       </v-card-actions>
+
     </v-form>
   </custom-block>
 </template>
@@ -116,9 +118,8 @@ export default {
 
 .snackbar{
   position: absolute;
-  bottom: 700px;
-  left: 0;
-  right: 0;
+  top: 600px;
+  bottom: 60%;
   margin: auto;
 }
 </style>

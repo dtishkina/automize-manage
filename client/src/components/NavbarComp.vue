@@ -5,34 +5,39 @@
     temporary
     class="side-app-bar"
   >
-    <div class="navbar__logo" @click="$router.push('/')" @click.stop="toggleDrawer">
+    <div class="navbar-logo" @click="$router.push('/')" @click.stop="toggleDrawer">
       <v-app-bar-nav-icon style="margin-right: 10px">
         <img :src="'src/assets/settings-02.svg'" alt="Icon"/>
       </v-app-bar-nav-icon>
       <v-app-bar-title>Automize <br> manage</v-app-bar-title>
     </div>
-    <div class="navbar__btns">
+
+    <div class="navbar-buttons-wrapper">
       <custom-button
-        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/references')"
+        class="navbar-buttons"
+        @click="$router.push('/references')"
         button-text="Справочники"
         :svg-path="'src/assets/rows-01.svg'"
       />
       <custom-button
-        style="margin-bottom: 5px; width: 100%;" @click="$router.push('/logs')"
+        class="navbar-buttons"
+        @click="$router.push('/logs')"
         button-text="Журналы"
         :svg-path="'src/assets/book-open-01.svg'"
       />
-      <div class="navbar__another">
-        <custom-button style="width: 100%"
+      <div class="navbar-another">
+        <custom-button class="navbar-buttons"
                        button-text="Выход"
                        :svg-path="'src/assets/log-out-03.svg'"
                        @click="showLogOutDialog"
         />
+
         <log-out-dialog
           v-model="logOutDialogVisible"
           @cancelLogout="closeLogOutDialog"
           @confirmLogout="handleLogout"
         ></log-out-dialog>
+
       </div>
     </div>
   </v-navigation-drawer>
@@ -41,7 +46,7 @@
     <v-app-bar-nav-icon @click.stop="drawer = !drawer">
       <img :src="'src/assets/menu-01.svg'" alt="Icon"/>
     </v-app-bar-nav-icon>
-    <div class="navbar__btns">
+    <div class="navbar-buttons-wrapper">
       <custom-button
         style="margin-bottom: 5px; width: 100%;" @click="$router.push('/references')"
         :svg-path="'src/assets/rows-01.svg'"
@@ -52,6 +57,7 @@
       />
     </div>
   </div>
+
 </template>
 
 <script>
@@ -87,18 +93,26 @@ export default {
 .side-app-bar {
   height: 100vh;
   box-shadow: 2px 0 2px rgba(0, 0, 0, 0.03);
-  margin: 2px;
+  padding: 9px;
 }
 
-.navbar__btns {
+.navbar-buttons-wrapper {
   margin: 80px 4px 0 0;
 }
 
-.navbar__another {
-  margin-top: auto;
+.navbar-buttons{
+  margin-bottom: 5px;
+  width: 100%;
 }
 
-.navbar__logo {
+.navbar-another {
+  margin: 0 4px 0 0;
+  position: fixed;
+  top: 90%;
+  width: 92%;
+}
+
+.navbar-logo {
   margin-top: 20px;
   font-size: x-large;
   font-weight: bold;
