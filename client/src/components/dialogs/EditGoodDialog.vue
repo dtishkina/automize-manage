@@ -47,9 +47,8 @@
           </v-row>
         </v-card-text>
 
-        <v-card-actions style="padding: 0 0 20px 100px">
-          <v-container>
-            <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-container class="action-wrapper">
             <v-btn
               class="action-button"
               variant="outlined"

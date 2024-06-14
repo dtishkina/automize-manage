@@ -8,8 +8,8 @@
           Вы действительно хотите выйти?
         </v-card-title>
 
-        <v-card-actions style="margin: 0 64px">
-          <v-container>
+        <v-card-actions>
+          <v-container class="action-wrapper">
             <v-btn
               class="action-button"
               variant="outlined"

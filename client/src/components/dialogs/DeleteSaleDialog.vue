@@ -49,8 +49,8 @@ export default defineComponent({
             {{ itemName }} на товар {{ itemId }}?
           </v-card-text>
 
-        <v-card-actions style="margin: 0 35px">
-          <v-container>
+        <v-card-actions>
+          <v-container class="action-wrapper">
             <v-btn
               class="action-button"
               variant="outlined"

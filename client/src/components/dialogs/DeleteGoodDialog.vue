@@ -51,8 +51,8 @@ export default defineComponent({
             </v-card-subtitle>
           </v-card-title>
 
-        <v-card-actions style="margin: 0 17px">
-          <v-container>
+        <v-card-actions>
+          <v-container class="action-wrapper">
             <v-btn
               class="action-button"
               variant="outlined"
